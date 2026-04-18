@@ -12,8 +12,11 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@clerk/backend": "^3.2.13",
     "@hono/node-server": "^1.19.14",
-    "hono": "^4.12.12"
+    "hono": "^4.12.14",
+    "svix": "^1.90.0",
+    "@confessed/db": "*"
   },
   "devDependencies": {
     "@types/node": "^22.19.17",
