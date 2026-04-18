@@ -1,17 +1,18 @@
 {
-  "name": "db",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@confessed/db",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "dependencies": {
+    "@neondatabase/serverless": "latest",
+    "drizzle-orm": "latest"
+  },
   "devDependencies": {
-    "dotenv": "^16.0.3",
-    "drizzle-kit": "^0.31.10"
+    "@types/node": "^22.19.17",
+    "dotenv": "latest",
+    "drizzle-kit": "latest"
   }
 }
