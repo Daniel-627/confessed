@@ -1,0 +1,19 @@
+{
+  "name": "@confessed/db",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "latest",
+    "drizzle-orm": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.17",
+    "dotenv": "latest",
+    "drizzle-kit": "latest"
+  }
+}
