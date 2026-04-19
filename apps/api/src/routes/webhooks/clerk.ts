@@ -1,6 +1,7 @@
 import { Webhook } from 'svix'
 import type { Context } from 'hono'
 import { db, users, userPreferences } from '@confessed/db'
+import { eq } from 'drizzle-orm'
 
 export async function handleClerkWebhook(c: Context) {
   const body = await c.req.text()
@@ -39,6 +40,15 @@ export async function handleClerkWebhook(c: Context) {
       .returning()
 
     await db.insert(userPreferences).values({ userId: user.id })
+  }
+
+  if (event.type === 'session.created') {
+    const { user_id } = event.data
+
+    await db
+      .update(users)
+      .set({ lastSeenAt: new Date() })
+      .where(eq(users.clerkId, user_id))
   }
 
   return c.json({ received: true })
