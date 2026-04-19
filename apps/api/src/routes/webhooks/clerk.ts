@@ -24,23 +24,21 @@ export async function handleClerkWebhook(c: Context) {
     const { id, email_addresses, first_name, last_name, image_url } = event.data
     const email = email_addresses[0]?.email_address
 
-    await db.transaction(async (tx) => {
-      const [user] = await tx
-        .insert(users)
-        .values({
-          clerkId: id,
-          email,
-          emailVerified:
-            email_addresses[0]?.verification?.status === 'verified',
-          displayName:
-            [first_name, last_name].filter(Boolean).join(' ') || null,
-          avatarUrl: image_url,
-          role: 'regular',
-        })
-        .returning()
+    const [user] = await db
+      .insert(users)
+      .values({
+        clerkId: id,
+        email,
+        emailVerified:
+          email_addresses[0]?.verification?.status === 'verified',
+        displayName:
+          [first_name, last_name].filter(Boolean).join(' ') || null,
+        avatarUrl: image_url,
+        role: 'regular',
+      })
+      .returning()
 
-      await tx.insert(userPreferences).values({ userId: user.id })
-    })
+    await db.insert(userPreferences).values({ userId: user.id })
   }
 
   return c.json({ received: true })
