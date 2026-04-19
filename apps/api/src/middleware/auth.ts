@@ -2,8 +2,12 @@ import { verifyToken } from '@clerk/backend'
 import type { Context, Next } from 'hono'
 import { db, users } from '@confessed/db'
 import { eq } from 'drizzle-orm'
+import type { AppVariables } from '../types'
 
-export async function requireAuth(c: Context, next: Next) {
+export async function requireAuth(
+  c: Context<{ Variables: AppVariables }>,
+  next: Next
+) {
   const token = c.req.header('Authorization')?.replace('Bearer ', '')
   if (!token) return c.json({ error: 'Unauthorized' }, 401)
 
@@ -23,7 +27,7 @@ export async function requireAuth(c: Context, next: Next) {
 }
 
 export function requireRole(...roles: ('regular' | 'contributor' | 'admin')[]) {
-  return async (c: Context, next: Next) => {
+  return async (c: Context<{ Variables: AppVariables }>, next: Next) => {
     const user = c.get('user')
     if (!roles.includes(user.role)) {
       return c.json({ error: 'Forbidden' }, 403)
