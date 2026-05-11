@@ -1,8 +1,9 @@
 {
   "name": "api",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
-  "main": "src/index.ts",
+  "main": "api/index.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "echo 'no build needed'"
